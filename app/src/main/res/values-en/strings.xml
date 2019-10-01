@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Traditional words</string>
+    <string name="back_text">return</string>
+    <string name="share_question_text">share</string>
+    <string name="share_the_question_with_friends">share the question with friends</string>
+    <string name="share_title_hint">share title</string>
+    <string name="the_right_answer_is">The right answer is</string>
+    <string-array name="answers">
+        <item>Aleiqal</item>
+        <item>alfuru</item>
+        <item>Sadu</item>
+        <item>Hena</item>
+        <item>Dalla</item>
+        <item>Alkhafu</item>
+        <item>Akhanajar</item>
+        <item>Alnamriqa</item>
+        <item>Alqandil / Alseraj</item>
+        <item>Alfanos</item>
+        <item>Altarbosh</item>
+        <item>Alamama</item>
+        <item>Aldeshdasha</item>
+        <item>Alestikanah</item>
+        <item>Almallas</item>
+    </string-array>
+
+    <string-array name="answer_description">
+        <item>Placed above the Ghutra to be fixed</item>
+        <item>Lined with wool, worn in winter to prevent cold</item>
+        <item>One type of traditional Bedouin fabric</item>
+        <item>Used in hair coloring and beard coloring,It is also used to beautify hands for women</item>
+        <item>The pot used to serve coffee in the Arabs</item>
+        <item>Made of leather, worn in the foot, was famous for the Arabs</item>
+        <item>A small white weapon placed on the waist</item>
+        <item>A small pillow on which to lean</item>
+        <item>The name of the instrument that was used for lighting in the past</item>
+        <item>A tool used for lighting and decoration</item>
+        <item>Red hat is famous in the Levant, Egypt and Morocco</item>
+        <item>Cover pellets over head</item>
+        <item>Arabic dress worn heavily in the Gulf States</item>
+        <item>It is the glass cup where the tea is placed </item>
+        <item>Is a tool that is used to stir food during cooking</item>
+    </string-array>
+    <string name="change_lang_text">chang language</string>
+</resources>
