@@ -8,7 +8,15 @@
     <string name="change_lang_text">تغيير اللغة</string>
     <string name="arabic">العربية</string>
     <string name="english">English</string>
+    <string name="permission_title">منح صلاحية</string>
+    <string name="permission_explanation">يحتاج التطبيق منح الصلاحية للتمكن من مشاركة الصورة ></string>
+    <string name="grant">منح</string>
+    <string name="cancel">الغاء</string>
 
+
+
+
+    permission_explanation
 
     <string-array name="answers">
         <item>العقال</item>

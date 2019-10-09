@@ -3,11 +3,13 @@ package com.barmej.culturalwords;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AnswerActivity extends AppCompatActivity {
+import static com.barmej.culturalwords.constants.ANS;
 
+public class AnswerActivity extends AppCompatActivity {
     private TextView mTextViewAnswer;
 
     @Override
@@ -15,13 +17,15 @@ public class AnswerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer);
         mTextViewAnswer = findViewById(R.id.text_view_answer);
-        String answer = getIntent().getStringExtra("answer");
-        if (answer != null)
+        String answer = getIntent().getStringExtra(ANS);
+        if (answer != null) {
             mTextViewAnswer.setText(answer);
-}
-
-    public void onReturnClicked (View view){
-        finish();
+        } else {
+            Toast.makeText(this, "No answer", Toast.LENGTH_SHORT).show();
+        }
     }
 
-        }
+    public void onReturnClicked(View view) {
+        finish();
+    }
+}

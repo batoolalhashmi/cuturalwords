@@ -1,6 +1,8 @@
 package com.barmej.culturalwords;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -10,9 +12,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
+
 import java.util.Random;
+
+import static com.barmej.culturalwords.constants.ANS;
+import static com.barmej.culturalwords.constants.APP_LANG;
+import static com.barmej.culturalwords.constants.APP_PREF;
+import static com.barmej.culturalwords.constants.EXTRA_QUESTION_IMAGE_ID;
+
 public class MainActivity extends AppCompatActivity {
-    private ImageView mImageViewQuestion,btn;
+    private ImageView mImageViewQuestion, btn;
     private int[] QUESTIONS = {
             R.drawable.icon_1,
             R.drawable.icon_2,
@@ -29,20 +38,19 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.icon_13,
             R.drawable.icon_14,
             R.drawable.icon_15,
-
     };
+    Random random = new Random();
     private String[] ANSWER;
     private String[] ANSWER_DESCRIPTION;
-    private String mCurrentAnswer,mCurrentAnswerDescription;
-    private int mCurrentQuestion,randomQuestionIndex;
+    private String mCurrentAnswer, mCurrentAnswerDescription;
+    private int mCurrentImageId, randomQuestionIndex;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences sharedPreferences = getSharedPreferences("app pref",MODE_PRIVATE);
-        String appLang = sharedPreferences.getString("app_lang","");
-        assert appLang != null;
-        if(!appLang.equals(""))
-            LocaleHelper.setLocale(this,appLang);
+        SharedPreferences sharedPreferences = getSharedPreferences(APP_PREF, MODE_PRIVATE);
+        String appLang = sharedPreferences.getString(APP_LANG, "");
+        LocaleHelper.setLocale(this, appLang);
         setContentView(R.layout.activity_main);
         mImageViewQuestion = findViewById(R.id.image_view_question);
         ANSWER = getResources().getStringArray(R.array.answers);
@@ -52,17 +60,17 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final PopupMenu popupMenu = new PopupMenu(MainActivity.this,btn);
-                popupMenu.getMenuInflater().inflate(R.menu.menu,popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
+                final PopupMenu popupMenu = new PopupMenu(MainActivity.this, btn);
+                popupMenu.getMenuInflater().inflate(R.menu.menu, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
                     @Override
-                    public boolean onMenuItemClick(MenuItem item){
-                        Toast.makeText(MainActivity.this,"" + item.getTitle(), Toast.LENGTH_SHORT).show();
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Toast.makeText(MainActivity.this, "" + item.getTitle(), Toast.LENGTH_SHORT).show();
                         String language = "ar";
                         if (item.getItemId() == R.id.arabic) {
                             language = "ar";
-                        }else {
+                        } else {
                             language = "en";
                         }
                         saveLanguage(language);
@@ -78,31 +86,44 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    private void saveLanguage(String lang){
-        SharedPreferences sharedPreferences = getSharedPreferences("app pref",MODE_PRIVATE);
+
+    private void saveLanguage(String lang) {
+        SharedPreferences sharedPreferences = getSharedPreferences(APP_PREF, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("app_lang",lang);
+        editor.putString(APP_LANG, lang);
         editor.apply();
     }
+
     private void showNewQuestion() {
-        Random random = new Random();
-        randomQuestionIndex = random.nextInt(QUESTIONS.length);
-        mCurrentQuestion = QUESTIONS[randomQuestionIndex];
+        randomQuestionIndex = getRandomNumber();
+        mCurrentImageId = QUESTIONS[randomQuestionIndex];
         mCurrentAnswer = ANSWER[randomQuestionIndex];
         mCurrentAnswerDescription = ANSWER_DESCRIPTION[randomQuestionIndex];
-        Drawable drawable = ContextCompat.getDrawable(MainActivity.this, mCurrentQuestion);
-        mImageViewQuestion.setImageDrawable(drawable);    }
-    public void onChangeQuestionClicked(View view){
+        Drawable drawable = ContextCompat.getDrawable(MainActivity.this, mCurrentImageId);
+        mImageViewQuestion.setImageDrawable(drawable);
+    }
+
+    private int getRandomNumber() {
+        int newRandom = randomQuestionIndex;
+        while (newRandom == randomQuestionIndex) {
+            newRandom = random.nextInt(QUESTIONS.length);
+        }
+        return newRandom;
+    }
+
+    public void onChangeQuestionClicked(View view) {
         showNewQuestion();
     }
-    public void onAnswerClicked(View view){
-        Intent intent = new Intent(MainActivity.this,AnswerActivity.class);
-        intent.putExtra("answer",mCurrentAnswer + ":" + mCurrentAnswerDescription);
+
+    public void onAnswerClicked(View view) {
+        Intent intent = new Intent(MainActivity.this, AnswerActivity.class);
+        intent.putExtra(ANS, mCurrentAnswer + ":" + mCurrentAnswerDescription);
         startActivity(intent);
     }
-    public void onShareQuestionClicked(View view){
-        Intent intent = new Intent(MainActivity.this,ShareActivity.class);
-        intent.putExtra("question_extra",mCurrentQuestion);
+
+    public void onShareQuestionClicked(View view) {
+        Intent intent = new Intent(MainActivity.this, ShareActivity.class);
+        intent.putExtra(EXTRA_QUESTION_IMAGE_ID, mCurrentImageId);
         startActivity(intent);
     }
 }
