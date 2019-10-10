@@ -1,5 +1,6 @@
 package com.barmej.culturalwords;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -99,6 +100,9 @@ public class MainActivity extends AppCompatActivity {
         mCurrentImageId = QUESTIONS[randomQuestionIndex];
         mCurrentAnswer = ANSWER[randomQuestionIndex];
         mCurrentAnswerDescription = ANSWER_DESCRIPTION[randomQuestionIndex];
+        showImage();
+    }
+    private void showImage(){
         Drawable drawable = ContextCompat.getDrawable(MainActivity.this, mCurrentImageId);
         mImageViewQuestion.setImageDrawable(drawable);
     }
@@ -125,5 +129,20 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, ShareActivity.class);
         intent.putExtra(EXTRA_QUESTION_IMAGE_ID, mCurrentImageId);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(EXTRA_QUESTION_IMAGE_ID, mCurrentImageId);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null) {
+            mCurrentImageId = savedInstanceState.getInt(EXTRA_QUESTION_IMAGE_ID);
+            showImage();
+        }
     }
 }

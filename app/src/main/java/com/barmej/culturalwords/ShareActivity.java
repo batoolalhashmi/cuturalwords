@@ -41,9 +41,6 @@ public class ShareActivity extends AppCompatActivity {
             imageResourceId = bundle.getInt(EXTRA_QUESTION_IMAGE_ID);
             mQuestion.setImageResource(imageResourceId);
         }
-        SharedPreferences sharedPreferences = getSharedPreferences(APP_PREF, MODE_PRIVATE);
-        String questionTitle = sharedPreferences.getString(SHARE_TITLE, "");
-        mEditTextShare.setText(questionTitle);
     }
 
     public void onShareQuestionClicked(View view) {
